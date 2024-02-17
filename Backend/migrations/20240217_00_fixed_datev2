@@ -1,0 +1,26 @@
+const { Sequelize } = require('sequelize')
+
+module.exports = {
+  up: async ({ context: queryInterface }) => {
+    await queryInterface.removeColumn('reading_lists', 'createdAt')
+    await queryInterface.removeColumn('reading_lists', 'updatedAt')
+    await queryInterface.removeColumn('users', 'passwordHash')
+    await queryInterface.addColumn('reading_lists', 'created_at', {
+      allowNull: false,
+      type: Sequelize.DATE
+    })
+    await queryInterface.addColumn('reading_lists', 'updated_at', {
+      allowNull: false,
+      type: Sequelize.DATE
+    })
+    await queryInterface.addColumn('users', 'password_hash', {
+      allowNull: false,
+      type: Sequelize.DATE
+    })
+  },
+  down: async ({ context: queryInterface }) => {
+    await queryInterface.removeColumn('reading_lists', 'created_at')
+    await queryInterface.removeColumn('reading_lists', 'updated_at')
+    await queryInterface.removeColumn('users', 'password_hash')
+  },
+}
